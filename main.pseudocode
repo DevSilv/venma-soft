@@ -1,0 +1,47 @@
+(display "To order a cold beverage, press 1 on the screen.
+         To order a hot beverage, press 2 on the screen.
+         To update the prices, press 3 on the screen.
+         To update the recipes, press 4 on the screen.")
+(run (wait input) ())
+
+function run code money
+    (is_maintenance_code code)
+        ? (maintain code)
+          (run (wait input) ())
+        : (order code money)
+          (run (wait input) ())
+
+function order code money
+    (and (empty code) (empty money))
+        ? (display "Error")
+          (run (wait input) ())
+        : (and (empty code) (not (empty money)))
+            ? (display "Error: no product chosen")
+              (run (wait input) ())
+            : (and (not (empty code)) (empty money))
+                ? (display "Insert money: {money}")
+                  (run code (wait input))
+                : (and (not (empty code)) (not (empty money)))
+                    ? (equal money (price code))
+                        ? (deliver code)
+                          (run (wait input) ())
+                        : (display "Insert money: {(subtract (price code) money)}")
+                          (run code (add money (wait input)))
+
+function maintain code
+    (equal code 3)
+        ? (update_prices)
+        : (equal code 4)
+            ? (update_recipes)
+            : (display "Maintenance error: unknown code")
+
+function deliver code
+    (empty code)
+        ? (display "Delivery error")
+        : (not (equal (recipe code) (store code)))
+            ? (display "Delivery error: not enough ingredients")
+            : (prepare code)
+
+// Possible improvements:
+// * Prevent not privileged users from updating
+// * Allow privileged users to update the store
