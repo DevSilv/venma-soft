@@ -1,0 +1,40 @@
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
+
+--
+
+Requirements:
+
+* it MUST?MAY be assumed that there will be no split payments;
+* the machine MUST allow at least the following payment methods:
+    * by payment card,
+    * by cash;
+* the machine SHOULD make it easy to implement new payment methods;
+* the machine MUST allow to choose between enabling payments and not enabling them while initially configuring the machine;
+* updating the machine's hardware (e.g., replacing the payment terminal for a new one) MUST NOT involve updating the machine's software;
+* the machine MUST allow to set the number of products while initially configuring the machine;
+* it MUST be assumed that there will be at least two machine's models, differing mainly by the number of slots for the ingredients (see also below);
+* if the machine detects the lack of an ingredient for a recipe:
+    * the product made according to this recipe MUST become unavailable for the user to order,
+    * the user MUST be notified of this unavailability;
+* if the machine detects a low level of an ingredient (i.e., according to at least one recipe - my comment), the machine's maintenance service MUST be notified of it; the notification MUST include all the information needed to identify the machine (e.g., its serial number) (the machine or the machine's model?);
+* it MUST be assumed that no internet connection is provided to the machine;
+* the machine MUST allow to be updated on-site;
+* the machine MUST allow two ways of connecting for the maintenaner (e.g., USB and bluetooth) (in the case one's broken);
+* the machine MUST verify the maintainer using two-factor authentication;
+* a recipe is to be "indivisible"; e.g., a cold beverage and a hot beverage are two different recipes;
+* the machine SHOULD clean itself periodically (like, e.g., coffee machines); in general, the maintainer SHOULD not need to maintain every little issue with it;
+* in case of a power outage, the machine MAY turn on by itself;
+* in case of a power outage, the machine MUST NOT resume what it has been doing before the outage; i.e., it MUST reinitialize itself;
+* if there happens a crash during delivering:
+    * the machine MUST immediately notify the maintainer of it and the notification MUST include the crash type,
+    * the machine MUST inform the user,
+    * if the user did the payment, the machine MUST give them the money back (what about card payments?);
+* it MUST be assumed that the recipe of any product consists of three things:
+    * loose ingredients (dehydrated),
+    * liquid ingredients (pressurized),
+    * water;
+* it MUST be assumed that the machine is provided the water from a water source (what about "sewage"?);
+* it MUST be assumed that the machine is provided ingredients other than water in a form of several-litres cartridges (both loose and liquid);
+* it MUST be assumed that the machine has a 13-inch touch screen (similar to the screen in ticket machines);
+* the machine MUST clean itself after a maintenance;
+* the machine MUST verify that the update of ingredients is done correctly; e.g., if the maintainer mixes up the ingredients - and it can cause, e.g., that allergic users will need medical help - the machine MUST correct it (e.g., by notifying the maintainer and forbidding the users of ordering products, the ingredients for recipes for which are mixed up - my comment).
