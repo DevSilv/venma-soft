@@ -1,0 +1,19 @@
+digraph {
+    switched_off -> initializing
+
+    initializing -> waiting
+    initializing -> switched_off
+
+    waiting -> "ordering"
+    waiting -> maintaining
+    waiting -> switched_off
+
+    "ordering" -> delivering
+    "ordering" -> switched_off
+
+    delivering -> waiting
+    delivering -> switched_off
+
+    maintaining -> waiting
+    maintaining -> switched_off
+}
