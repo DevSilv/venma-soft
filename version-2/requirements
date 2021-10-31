@@ -4,7 +4,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 Requirements:
 
-* it MUST?MAY be assumed that there will be no split payments;
+* it MUST be assumed that there will be no split payments;
 * the machine MUST allow at least the following payment methods:
     * by payment card,
     * by cash;
@@ -16,7 +16,7 @@ Requirements:
 * if the machine detects the lack of an ingredient for a recipe:
     * the product made according to this recipe MUST become unavailable for the user to order,
     * the user MUST be notified of this unavailability;
-* if the machine detects a low level of an ingredient (i.e., according to at least one recipe - my comment), the machine's maintenance service MUST be notified of it; the notification MUST include all the information needed to identify the machine (e.g., its serial number) (the machine or the machine's model?);
+* if the machine detects a low level of an ingredient (i.e., according to at least one recipe - my comment), the machine's maintenance service MUST be notified of it; the notification MUST include all the information needed to identify the machine (e.g., its serial number);
 * it MUST be assumed that no internet connection is provided to the machine;
 * the machine MUST:
     * allow two ways of connecting for the maintenaner (e.g., USB and bluetooth) (in the case one's broken),
@@ -32,13 +32,13 @@ Requirements:
 * if there happens a crash during delivering:
     * the machine MUST immediately notify the maintainer of it and the notification MUST include the crash type,
     * the machine MUST inform the user,
-    * if the user did the payment, the machine MUST give them the money back (what about card payments?);
+    * if the user did the payment, the machine MUST give them the money back (in case of any payment method);
 * it MUST be assumed that the recipe of any product consists of three things:
     * dehydrated ingredients (loose),
     * liquid ingredients (pressurized),
     * water;
 * it MUST be assumed that the machine is provided:
-    * the water from a water source (what about "sewage"?),
+    * the water from a water source,
     * ingredients other than water in a form of several-litres cartridges (both loose and liquid);
 * it MUST be assumed that the machine has a 13-inch touch screen (similar to the screen in ticket machines);
 * the machine MUST clean itself after a maintenance;
@@ -47,4 +47,5 @@ Requirements:
 * the machine's software SHOULD be as simple as possible, especially managing the ingredients;
 * the information about the tempererature of a product SHOULD be fixed to the product;
 * the machine MUST allow the maintainer to monitor the state of ingredients;
-* in the case of a lack of an ingredient from a recipe for a product, a client MUST be notified only of the lack of the product.
+* in the case of a lack of an ingredient from a recipe for a product, a client MUST be notified only of the lack of the product;
+* the machine MUST monitor the state of its sewage container.
