@@ -1,7 +1,9 @@
 digraph {
     //rankdir=LR
     //splines=polyline
-    ranksep="2"
+    ranksep=2
+    //len=2
+    nodesep=2
 
     subgraph cluster_0 {
         label="Notes"
