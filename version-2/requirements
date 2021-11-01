@@ -4,48 +4,47 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 Requirements:
 
-* [ ] it MUST be assumed that there will be no split payments;
-* [ ] the machine MUST allow at least the following payment methods:
-    * [ ] by payment card,
-    * [ ] by cash;
-* [ ] the machine SHOULD make it easy to implement new payment methods;
-* [ ] the machine MUST be allowed to be set either none, one or serveral payment methods while initially configuring the machine;
-* [ ] updating the machine's hardware (e.g., replacing the payment terminal for a new one) MUST NOT involve updating the machine's software;
-* [ ] the machine MUST allow to set the number of products while initially configuring the machine;
-* [ ] it MUST be assumed that there will be at least two machine's models, differing mainly by the number of slots for the ingredients (see also below);
-* [ ] if the machine detects the lack of an ingredient for a recipe:
-    * [ ] the product made according to this recipe MUST become unavailable for the user to order,
-    * [ ] the user MUST be notified of this unavailability;
-* [ ] if the machine detects a low level of an ingredient (i.e., according to at least one recipe - my comment), the machine's maintenance service MUST be notified of it; the notification MUST include all the information needed to identify the machine (e.g., its serial number);
-* [ ] it MUST be assumed that no internet connection is provided to the machine;
-* [ ] the machine MUST:
-    * [ ] allow two ways of connecting for the maintenaner (e.g., USB and bluetooth) (in the case one's broken),
-    * [ ] verify the maintainer using two-factor authentication,
-    * [ ] allow to be updated on-site;
-* [ ] a recipe is to be "indivisible"; e.g., a cold beverage and a hot beverage are two different recipes;
-* [ ] the machine:
-    * [ ] SHOULD clean itself periodically (like, e.g., coffee machines; in general, the maintainer should not need to maintain every little issue with it),
-    * [ ] MUST clean itself after a maintenance;
-* [ ] in case of a power outage:
-    * [ ] the machine MAY turn on by itself,
-    * [ ] the machine MUST NOT resume what it has been doing before the outage, i.e., it MUST reinitialize itself;
-* [ ] if there happens a crash during delivering:
-    * [ ] the machine MUST immediately notify the maintainer of it and the notification MUST include the crash type,
-    * [ ] the machine MUST inform the user,
-    * if the user did the payment, the machine MUST give them the money back (in case of any payment method);
-* [ ] it MUST be assumed that the recipe of any product consists of three things:
-    * [ ] dehydrated ingredients (loose),
-    * [ ] liquid ingredients (pressurized),
-    * [ ] water;
-* [ ] it MUST be assumed that the machine is provided:
-    * [ ] the water from a water source,
-    * [ ] ingredients other than water in a form of several-litres cartridges (both loose and liquid);
-* [ ] it MUST be assumed that the machine has a 13-inch touch screen (similar to the screen in ticket machines);
-* [ ] the machine MUST clean itself after a maintenance;
-* [ ] the machine MUST check whether the update of ingredients is done correctly; e.g., if the maintainer mixes up the ingredients - and it can cause, e.g., that allergic users will need medical help - the machine MUST correct it (e.g., by notifying the maintainer and forbidding the users of ordering products, the ingredients for recipes for which are mixed up - my comment);
-* [ ] it MUST be assumed that the machine is capable of storing liquid and dehydrated ingredients in two separate slots;
-* [ ] the machine's software SHOULD be as simple as possible, especially managing the ingredients;
-* [ ] the information about the tempererature of a product SHOULD be fixed to the product;
-* [ ] the machine MUST allow the maintainer to monitor the state of ingredients;
-* [ ] in the case of a lack of an ingredient from a recipe for a product, a client MUST be notified only of the lack of the product;
-* [ ] the machine MUST monitor the state of its sewage container.
+* [?] it MUST be assumed that there will be no split payments;
+* [x] the machine MUST allow at least the following payment methods:
+    * [x] by payment card,
+    * [x] by cash;
+* [?] the machine SHOULD make it easy to implement new payment methods;
+* [?] the machine MUST be allowed to be set either none, one or serveral payment methods while initially configuring the machine;
+* [?] updating the machine's hardware (e.g., replacing the payment terminal for a new one) MUST NOT involve updating the machine's software;
+* [?] the machine MUST allow to set the number of products while initially configuring the machine;
+* [?] it MUST be assumed that there will be at least two machine's models, differing mainly by the number of slots for the ingredients (see also below);
+* [x] if the machine detects the lack of an ingredient for a recipe:
+    * [x] the product made according to this recipe MUST become unavailable for the user to order,
+    * [x] the user MUST be notified of this unavailability;
+* [x] if the machine detects a low level of an ingredient (i.e., according to at least one recipe - my comment), the machine's maintenance service MUST be notified of it; the notification MUST include all the information needed to identify the machine (e.g., its serial number);
+* [x] it MUST be assumed that no internet connection is provided to the machine;
+* [?] the machine MUST:
+    * [x] allow two ways of connecting for the maintenaner (e.g., USB and bluetooth) (in the case one's broken),
+    * [x] verify the maintainer using two-factor authentication,
+    * [?] allow to be updated on-site;
+* [?] a recipe is to be "indivisible"; e.g., a cold beverage and a hot beverage are two different recipes;
+* [?] the machine:
+    * [?] SHOULD clean itself periodically (like, e.g., coffee machines; in general, the maintainer should not need to maintain every little issue with it),
+    * [x] MUST clean itself after a maintenance;
+* [x] in case of a power outage:
+    * [x] the machine MAY turn on by itself,
+    * [x] the machine MUST NOT resume what it has been doing before the outage, i.e., it MUST reinitialize itself (therefore it MUST clean itself as part of that reinitializing, because e.g. there may be a paper cup left - my comment);
+* [x] if there happens a crash during delivering:
+    * [x] the machine MUST immediately notify the maintainer of it and the notification MUST include the crash type,
+    * [x] the machine MUST inform the user,
+    * [x] if the user did the payment, the machine MUST give them the money back (in case of any payment method);
+* [?] it MUST be assumed that the recipe of any product consists of three things:
+    * [?] dehydrated ingredients (loose),
+    * [?] liquid ingredients (pressurized),
+    * [?] water;
+* [?] it MUST be assumed that the machine is provided:
+    * [?] the water from a water source,
+    * [?] ingredients other than water in a form of several-litres cartridges (both loose and liquid);
+* [?] it MUST be assumed that the machine has a 13-inch touch screen (similar to the screen in ticket machines);
+* [x] the machine MUST check whether the update of ingredients is done correctly; e.g., if the maintainer mixes up the ingredients - and it can cause, e.g., that allergic users will need medical help - the machine MUST correct it (e.g., by notifying the maintainer and forbidding the users of ordering products, the ingredients for recipes for which are mixed up - my comment);
+* [?] it MUST be assumed that the machine is capable of storing liquid and dehydrated ingredients in two separate slots;
+* [?] the machine's software SHOULD be as simple as possible, especially managing the ingredients;
+* [?] the information about the tempererature of a product SHOULD be fixed to the product;
+* [x] the machine MUST allow the maintainer to monitor the state of ingredients;
+* [x] in the case of a lack of an ingredient from a recipe for a product, a client MUST be notified only of the lack of the product;
+* [x] the machine MUST monitor the state of its sewage container.
