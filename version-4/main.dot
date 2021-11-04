@@ -1,0 +1,52 @@
+digraph {
+    label=MAIN
+
+    INITIALIZATION
+    INITIALIZATION -> {
+        CLEANING
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    CLEANING
+    CLEANING -> {
+        WAITING
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    WAITING
+    WAITING -> {
+        ORDERING
+        MAINTENANCE
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    ORDERING
+    ORDERING -> {
+        WAITING
+        DELIVERY
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    DELIVERY
+    DELIVERY -> {
+        CLEANING
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    HANDLING_PROBLEM [label="HANDLING\nPROBLEM"]
+    HANDLING_PROBLEM -> {
+        MAINTENANCE
+        INITIALIZATION
+    }
+
+    MAINTENANCE
+    MAINTENANCE -> {
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+}

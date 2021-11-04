@@ -1,0 +1,29 @@
+digraph {
+    label="EMPTYING\nSEWAGE\nCONTAINER"
+
+    WAITING_IN_MAINTENANCE [style=dashed,label="WAITING\nIN MAINTENANCE"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    WAITING_IN_MAINTENANCE -> emptying_sewage_container_started
+
+    emptying_sewage_container_started [label="Emptying\nsewage\ncontainer\nstarted"]
+    emptying_sewage_container_started -> {
+        emptying_sewage_container_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    emptying_sewage_container_completed [label="Emptying\nsewage\ncontainer\ncompleted"]
+    emptying_sewage_container_completed -> {
+        WAITING_IN_MAINTENANCE
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

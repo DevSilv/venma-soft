@@ -1,0 +1,59 @@
+digraph {
+    ranksep=1
+
+    label="WAITING\nIN MAINTENANCE"
+
+    LOGGING_IN [style=dashed,label="LOGGING-IN"]
+    LOGGING_OUT [style=dashed,label="LOGGING-OUT"]
+    INGREDIENT_CONTAINERS_MANAGEMENT [style=dashed,label="INGREDIENT\nCONTAINTERS\nMANAGEMENT"]
+    EMPTYING_SEWAGE_CONTAINER [style=dashed,label="EMPTYING\nSEWAGE\nCONTAINER"]
+    MANUAL_CONFIGURATION [style=dashed,label="MANUAL\nCONFIGURATION"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    LOGGING_IN -> waiting_in_maintenance_started
+
+    waiting_in_maintenance_started [label="Waiting\nin maintenance\nstarted"]
+    waiting_in_maintenance_started -> {
+        logging_out_option_chosen
+        ingredient_containers_management_option_chosen
+        emptying_sewage_container_option_chosen
+        manual_configuration_option_chosen
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    logging_out_option_chosen [label="Logging-out\noption\nchosen"]
+    logging_out_option_chosen -> {
+        LOGGING_OUT
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    ingredient_containers_management_option_chosen [label="Ingredient\ncontainers\nmanagement\noption\nchosen"]
+    ingredient_containers_management_option_chosen -> {
+        INGREDIENT_CONTAINERS_MANAGEMENT
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    emptying_sewage_container_option_chosen [label="Emptying\nsewage\ncontainer\noption\nchosen"]
+    emptying_sewage_container_option_chosen -> {
+        EMPTYING_SEWAGE_CONTAINER
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    manual_configuration_option_chosen [label="Manual\nconfiguration\noption\nchosen"]
+    manual_configuration_option_chosen -> {
+        MANUAL_CONFIGURATION
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

@@ -1,0 +1,60 @@
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all capitals, as shown here.
+
+--
+
+Key:
+
+[+] - requirement implemented
+[ ] - requirement not implemented yet
+[?] - requirement requires acquiring more information
+
+--
+
+Requirements:
+
+* [+] when initially configuring the machine, the machine:
+    * [+] MUST allow to set either none, one, or several payment methods,
+    * [+] MUST allow to set the number of products;
+* [+] it MUST be assumed that there will be no split payments;
+* [+] the machine MUST allow at least the following payment methods:
+    * [+] by payment card,
+    * [+] by cash;
+* [+] the machine SHOULD make it easy to implement new payment methods;
+* [?] updating the machine's hardware (e.g., replacing the payment terminal for a new one) MUST NOT involve updating the machine's software -> ask the client about the exact hardware specification (for every machine's model), so that you can design all the software that might depend on hardware in a way that makes it impossible not to update the software when updating the hardware;
+* [x] it MUST be assumed that there will be at least two machine's models, differing mainly by the number of slots for the ingredients; -> I'm rejecting this requirement as not well-defined
+* [+] if the machine detects the lack of an ingredient:
+    * [+] the products requiring this ingredient MUST become unavailable for the user to order,
+    * [+] the user MUST be notified of this unavailability;
+* [+] if the machine detects a low level of an ingredient, the machine's maintenance service MUST be notified of it; the notification MUST include all the information needed to identify the machine (e.g., its serial number);
+* [?] it MUST be assumed that no internet connection is provided to the machine -> ask the client what about networks other than internet - e.g. for payments;
+* [+/x] the machine MUST:
+    * [+] allow two ways of connecting for the maintenaner (e.g., USB and bluetooth) (in the case one's broken),
+    * [+] verify the maintainer using two-factor authentication,
+    * [x] allow to be updated on-site -> compare with the raw client requirements what does it mean "updated" -> I'm rejecting this requirement, because it doesn't seem to be said by the client at all, or is not well-specified;
+* [?] a recipe MUST be assumed to be "indivisible"; e.g., a cold beverage and a hot beverage are two different recipes -> ask the client for clarifying how this might apply to software; it seems to apply only to recipes, that is - to things beyond the machine's hardware and software;
+* [+] the machine:
+    * [+] SHOULD clean itself periodically (like, e.g., coffee machines; in general, the maintainer should not need to maintain every little issue with it),
+    * [+] MUST clean itself after a maintenance;
+* [+] in case of a power outage:
+    * [+] the machine MAY turn on by itself,
+    * [+] the machine MUST NOT resume what it has been doing before the outage, i.e., it MUST reinitialize itself (therefore it MUST clean itself as part of that reinitializing, because e.g. there may be a paper cup left - my comment);
+* [+] if there happens a crash during delivering:
+    * [+] the machine MUST immediately notify the maintainer of it and the notification MUST include the crash type,
+    * [+] the machine MUST inform the user,
+    * [+] if the user did the payment, the machine MUST give them the money back (in case of any payment method);
+* [?] it MUST be assumed that the recipe of any product consists of three things:
+    * [?] dehydrated ingredients (loose),
+    * [?] liquid ingredients (pressurized),
+    * [?] water -> ask the client how this requirement could be addressed by the software;
+* [?] it MUST be assumed that the machine is provided:
+    * [?] water from a water source -> ask the clients how this requirement could be addressed by the software,
+    * [?] ingredients other than water in a form of several-litres cartridges (or: containers - my note) (both loose and liquid) -> ask the client for clarification, how does this apply to software; it seems to apply to hardware only;
+* [x] it MUST be assumed that the machine has a 13-inch touch screen (similar to the screen in ticket machines); -> I'm rejecting this requirement as an implementation detail
+* [+] the machine MUST check whether the update of ingredients is done correctly; e.g., if the maintainer mixes up the ingredients - and it can cause, e.g., that allergic users will need medical help - the machine MUST correct it (e.g., by notifying the maintainer and forbidding the users of ordering products, the ingredients for which are mixed up - my comment);
+* [x] it MUST be assumed that the machine is capable of storing liquid and dehydrated ingredients in two separate slots -> compare with client's raw requirements, what does it mean "two" -> I'm rejecting this requirement because it is not well-specified; and I'm adding an additional, similar requirement;
+* [?] liquid and dehydrated ingredients MUST be assumed to be stored in dedicated slots -> ask the client what does it mean;
+* [x] the machine's software SHOULD be as simple as possible, especially managing the ingredients; -> I'm rejecting this requirement as not well-defined
+* [?] the information about the temperature of a product SHOULD be fixed to the product -> ask the client for help to implement this requirement;
+* [+] the machine MUST allow the maintainer to monitor the state of ingredients;
+* [+] in the case of a lack of an ingredient for a product, a client MUST be notified only of the lack of the product;
+* [+] the machine MUST monitor the state of its sewage container.

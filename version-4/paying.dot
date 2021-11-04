@@ -1,0 +1,46 @@
+digraph {
+    label=PAYING
+
+    INGREDIENTS_CHECK [style=dashed,label="INGREDIENTS\nCHECK"]
+    DELIVERY [style=dashed]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    INGREDIENTS_CHECK -> paying_started
+
+    paying_started [label="Paying\nstarted"]
+    paying_started -> {
+        paying_not_completed
+        paying_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    paying_completed [label="Paying\ncompleted"]
+    paying_completed -> {
+        DELIVERY
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    paying_continued [label="Paying\ncontinued"]
+    paying_continued -> {
+        paying_not_completed
+        paying_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    paying_not_completed [label="Paying\nnot completed"]
+    paying_not_completed -> {
+        paying_continued
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

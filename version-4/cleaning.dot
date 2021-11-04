@@ -1,0 +1,29 @@
+digraph {
+    label=CLEANING
+
+    WAITING [style=dashed]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    INITIALIZATION -> cleaning_started
+
+    cleaning_started [label="Cleaning\nstarted"]
+    cleaning_started -> {
+        cleaning_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    cleaning_completed [label="Cleaning\ncompleted"]
+    cleaning_completed -> {
+        WAITING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

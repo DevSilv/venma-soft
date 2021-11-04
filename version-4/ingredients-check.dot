@@ -1,0 +1,89 @@
+digraph {
+    label="INGREDIENTS\nCHECK"
+
+    SELECTION [style=dashed]
+    WAITING [style=dashed]
+    WAITING_FOR_PAYING [style=dashed,label="WAITING\nFOR PAYING"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+    
+    SELECTION -> ingredients_check_started
+
+    ingredients_check_started [label="Ingredients\ncheck\nstarted"]
+    ingredients_check_started -> {
+        ingredients_check_completed
+        ingredient_lack_detected
+        ingredients_low_level_predicted
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    ingredient_lack_detected [label="Ingredient\nlack\ndetected"]
+    ingredient_lack_detected -> {
+        making_products_unavailable_started
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    making_products_unavailable_started [label="Making\nproducts\nunavailable\nstarted"]
+    making_products_unavailable_started -> {
+        making_products_unavailable_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    making_products_unavailable_completed [label="Making\nproducts\nunavailable\ncompleted"]
+    making_products_unavailable_completed -> {
+        notifying_users_about_products_unavailability_started
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    notifying_users_about_products_unavailability_started [label="Notifying\nusers\nabout products\nunavailability\nstarted"]
+    notifying_users_about_products_unavailability_started -> {
+        notifying_users_about_products_unavailability_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    notifying_users_about_products_unavailability_completed [label="Notifying\nusers\nabout products\nunavailability\ncompleted"]
+    notifying_users_about_products_unavailability_completed -> {
+        WAITING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    ingredients_low_level_predicted [label="Ingredients\nlow level\npredicted"]
+    ingredients_low_level_predicted -> {
+        notifying_maintainers_about_ingredients_low_level_started
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    notifying_maintainers_about_ingredients_low_level_started [label="Notifying\nmaintainers\nabout ingredients\nlow level\nstarted"]
+    notifying_maintainers_about_ingredients_low_level_started -> {
+        notifying_maintainers_about_ingredients_low_level_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    notifying_maintainers_about_ingredients_low_level_completed [label="Notifying\nmaintainers\nabout ingredients\nlow level\ncompleted"]
+    notifying_maintainers_about_ingredients_low_level_completed -> {
+        ingredients_check_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    ingredients_check_completed [label="Ingredients\ncheck\ncompleted"]
+    ingredients_check_completed -> {
+        WAITING_FOR_PAYING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

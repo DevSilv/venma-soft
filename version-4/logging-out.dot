@@ -1,0 +1,29 @@
+digraph {
+    label="LOGGING-OUT"
+
+    WAITING_IN_MAINTENANCE [style=dashed,label="WAITING\nIN MAINTENANCE"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    WAITING_IN_MAINTENANCE -> logging_out_started
+
+    logging_out_started [label="Logging-out\nstarted"]
+    logging_out_started -> {
+        logging_out_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    logging_out_completed [label="Logging-out\ncompleted"]
+    logging_out_completed -> {
+        INITIALIZATION
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

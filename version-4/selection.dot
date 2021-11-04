@@ -1,0 +1,46 @@
+digraph {
+    label=SELECTION
+
+    WAITING [style=dashed]
+    INGREDIENTS_CHECK [style=dashed,label="INGREDIENTS\nCHECK"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    WAITING -> selection_started
+
+    selection_started [label="Selection\nstarted"]
+    selection_started -> {
+        selection_not_completed
+        selection_completed
+        machine_controlled_by_hardware 
+        problem_detected
+    }
+
+    selection_not_completed [label="Selection\nnot completed"]
+    selection_not_completed -> {
+        selection_continued
+        machine_controlled_by_hardware 
+        problem_detected
+    }
+
+    selection_continued [label="Selection\ncontinued"]
+    selection_continued -> {
+        selection_not_completed
+        selection_completed
+        machine_controlled_by_hardware 
+        problem_detected
+    }
+
+    selection_completed [label="Selection\ncompleted"]
+    selection_completed -> {
+        INGREDIENTS_CHECK
+        machine_controlled_by_hardware 
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

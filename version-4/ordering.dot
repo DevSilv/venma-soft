@@ -1,0 +1,39 @@
+digraph {
+    label=ORDERING
+
+    WAITING [style=dashed]
+    DELIVERY [style=dashed]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    WAITING -> SELECTION
+
+    SELECTION [label=SELECTION]
+    SELECTION -> {
+        INGREDIENTS_CHECK
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    INGREDIENTS_CHECK [label="INGREDIENTS\nCHECK"]
+    INGREDIENTS_CHECK -> {
+        WAITING_FOR_PAYING
+        WAITING
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    WAITING_FOR_PAYING [label="WAITING\nFOR PAYING"]
+    WAITING_FOR_PAYING -> {
+        PAYING
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+
+    PAYING
+    PAYING -> {
+        DELIVERY
+        INITIALIZATION
+        HANDLING_PROBLEM
+    }
+}

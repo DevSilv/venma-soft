@@ -1,0 +1,38 @@
+digraph {
+    label=INITIALIZATION
+
+    CLEANING [style=dashed]
+    WAITING [style=dashed]
+    ORDERING [style=dashed]
+    DELIVERY [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    CLEANING -> initialization_started
+    WAITING -> initialization_started
+    ORDERING -> initialization_started
+    DELIVERY -> initialization_started
+    HANDLING_PROBLEM -> initialization_started
+
+    initialization_started [label="Initialization\nstarted"] 
+    initialization_started -> {
+        initialization_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    initialization_completed [label="Initialization\ncompleted"]
+    initialization_completed -> {
+        CLEANING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> initialization_started
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> {
+        HANDLING_PROBLEM
+        machine_controlled_by_hardware
+    }
+}

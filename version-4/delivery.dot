@@ -1,0 +1,30 @@
+digraph {
+    label=DELIVERY
+
+    ORDERING [style=dashed]
+    CLEANING [style=dashed]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    ORDERING -> delivery_started
+
+    delivery_started [label="Delivery\nstarted"]
+    delivery_started -> {
+        delivery_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    delivery_completed [label="Delivery\ncompleted"]
+    delivery_completed -> {
+        CLEANING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+}

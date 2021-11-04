@@ -1,0 +1,65 @@
+digraph {
+    label=NOTES
+
+    1 [shape=plaintext, label="
+(1) If the machine is \"controlled by hardware\", it means
+that the control has been taken from the software
+by the hardware; it could happen e.g. when there was
+a power outage, or simply there is any problem detected
+by the hardware.
+
+(2) \"Logging-in\" involves two-factor authentication.
+
+(3) Every notification for the maintainers includes
+the machine's serial number and the reason it has been sent
+for.
+
+(4) \"Starting the paying\" means particularly
+that the user either insert the cash, use the card, or use
+any other available way of starting the paying.
+
+(5) \"Ending the paying\" means particularly
+that either the user is inserting the last lacking amount
+of cash, or the paying is being completed in any other way
+that is required by the paying method that was used.
+
+(5a) \"Paying\" does not involve split payments.
+
+(6) \"Predicting the level of an ingredient\"
+during the \"ingredients check\" means predicting the level
+of this ingredient after the product that this ingredient
+is to be used to prepare is eventually prepared.
+
+(7) As a \"problem\" during the \"ingredients check\"
+it is considered, among others, an invalid arrangement
+of ingredients in particular containers, and an invalid
+arrangement of containers themselves.
+
+(8) As a \"problem\" during \"cleaning\" it is considered,
+among others, that the sewage container is full.
+
+(9) As a \"problem\" during \"initializing\"
+it is considered, among others, that the machine
+has not been yet configured initially.
+
+(10) \"General configuration\" allows configuring
+all of the settings of the machine other than products
+and payments.
+
+(11) \"Configuring products\" allows configuring
+the number of products.
+
+(11a) \"Configuring products\" allows configuring
+recipes.
+
+(11b) \"Configuring ingredients\" allows configuring
+the number of containers.
+
+(12) \"Configuring payments\" allows setting either none,
+one, or several payment methods.
+
+(13) It is assumed that one ingredient is stored
+in one and only one container, and that one container
+is storing one and only one ingredient.
+    "]
+}

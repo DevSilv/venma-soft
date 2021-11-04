@@ -1,0 +1,30 @@
+digraph {
+    label="WAITING\nFOR PAYING"
+
+    INGREDIENTS_CHECK [style=dashed,label="INGREDIENTS\nCHECK"]
+    PAYING [style=dashed]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    INGREDIENTS_CHECK -> waiting_for_paying_started
+
+    waiting_for_paying_started [label="Waiting\nfor paying\nstarted"]
+    waiting_for_paying_started -> {
+        cash_inserted
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    cash_inserted [label="Cash\ninserted"]
+    cash_inserted -> {
+        PAYING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

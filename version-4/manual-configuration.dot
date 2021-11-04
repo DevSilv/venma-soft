@@ -1,0 +1,71 @@
+digraph {
+    label="MANUAL CONFIGURATION"
+
+    WAITING_IN_MAINTENANCE [style=dashed,label="WAITING IN MAINTENANCE"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING PROBLEM"]
+
+    WAITING_IN_MAINTENANCE -> general_configuration_started
+
+    general_configuration_started [label="General configuration started"]
+    general_configuration_started -> {
+        general_configuration_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    general_configuration_completed [label="General configuration completed"]
+    general_configuration_completed -> {
+        configuring_ingredients_started
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    configuring_ingredients_started [label="Configuring ingredients started"]
+    configuring_ingredients_started -> {
+        configuring_ingredients_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    configuring_ingredients_completed [label="Configuring ingredients completed"]
+    configuring_ingredients_completed -> {
+        configuring_products_started
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    configuring_products_started [label="Configuring products started"]
+    configuring_products_started -> {
+        configuring_products_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    configuring_products_completed [label="Configuring products completed"]
+    configuring_products_completed -> {
+        configuring_payments_started
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    configuring_payments_started [label="Configuring payments started"]
+    configuring_payments_started -> {
+        configuring_payments_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    configuring_payments_completed [label="Configuring payments completed"]
+    configuring_payments_completed -> {
+        WAITING_IN_MAINTENANCE
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine controlled by hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem detected"]
+    problem_detected -> HANDLING_PROBLEM
+}

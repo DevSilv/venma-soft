@@ -1,0 +1,92 @@
+digraph {
+    label="HANDLING\nPROBLEM"
+
+    INITIALIZATION [style=dashed]
+    CLEANING [style=dashed]
+    WAITING [style=dashed]
+    ORDERING [style=dashed]
+    DELIVERY [style=dashed]
+    MAINTENANCE [style=dashed]
+
+    INITIALIZATION -> blocking_started
+
+    CLEANING -> blocking_started
+
+    WAITING -> blocking_started
+
+    ORDERING -> blocking_started
+
+    DELIVERY -> blocking_started
+
+    MAINTENANCE -> blocking_started
+
+    blocking_started [label="Blocking\nstarted"]
+    blocking_started -> {
+        blocking_completed
+        machine_controlled_by_hardware
+    }
+
+    blocking_completed [label="Blocking\ncompleted"]
+    blocking_completed -> {
+        notifying_users_about_problem_started
+        machine_controlled_by_hardware
+    }
+
+    notifying_users_about_problem_started [label="Notifying\nusers\nabout problem\nstarted"]
+    notifying_users_about_problem_started -> {
+        notifying_users_about_problem_completed
+        machine_controlled_by_hardware
+    }
+
+    notifying_users_about_problem_completed [label="Notifying\nusers\nabout problem\ncompleted"]
+    notifying_users_about_problem_completed -> {
+        returning_money_started
+        machine_controlled_by_hardware
+    }
+
+    returning_money_started [label="Returning\nmoney\nstarted"]
+    returning_money_started -> {
+        returning_money_completed
+        machine_controlled_by_hardware
+    }
+
+    returning_money_completed [label="Returning\nmoney\ncompleted"]
+    returning_money_completed -> {
+        notifying_maintainers_about_problem_started
+        machine_controlled_by_hardware
+    }
+
+    notifying_maintainers_about_problem_started [label="Notifying\nmaintainers\nabout problem\nstarted"]
+    notifying_maintainers_about_problem_started -> {
+        notifying_maintainers_about_problem_completed
+        machine_controlled_by_hardware
+    }
+
+    notifying_maintainers_about_problem_completed [label="Notifying\nmaintainers\nabout problem\ncompleted"]
+    notifying_maintainers_about_problem_completed -> {
+        waiting_for_maintenance_started
+        machine_controlled_by_hardware
+    }
+
+    waiting_for_maintenance_started [label="Waiting\nfor maintenance\nstarted"]
+    waiting_for_maintenance_started -> {
+        bluetooth_maintenance_signal_received
+        maintenance_usb_drive_inserted
+        machine_controlled_by_hardware
+    }
+
+    bluetooth_maintenance_signal_received [label="Bluetooth\nmaintenance\nsignal\nreceived"]
+    bluetooth_maintenance_signal_received -> {
+        MAINTENANCE
+        machine_controlled_by_hardware
+    }
+
+    maintenance_usb_drive_inserted [label="Maintenance\nUSB drive\ninserted"]
+    maintenance_usb_drive_inserted -> {
+        MAINTENANCE
+        machine_controlled_by_hardware
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+}

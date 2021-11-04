@@ -1,0 +1,33 @@
+digraph {
+    label="LOGGING-IN"
+
+    WAITING [style=dashed]
+    WAITING_FOR_MAINTENANCE [style=dashed,label="WAITING\nFOR MAINTENANCE"]
+    WAITING_IN_MAINTENANCE [style=dashed,label="WAITING\nIN MAINTENANCE"]
+    INITIALIZATION [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+
+    WAITING -> logging_in_started
+
+    WAITING_FOR_MAINTENANCE -> logging_in_started
+
+    logging_in_started [label="Logging-in\nstarted"]
+    logging_in_started -> {
+        logging_in_completed
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    logging_in_completed [label="Logging-in\ncompleted"]
+    logging_in_completed -> {
+        WAITING_IN_MAINTENANCE
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+}

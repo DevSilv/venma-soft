@@ -1,0 +1,59 @@
+digraph {
+    ranksep=1
+
+    label=WAITING
+
+    ORDERING [style=dashed]
+    CLEANING [style=dashed]
+    HANDLING_PROBLEM [style=dashed,label="HANDLING\nPROBLEM"]
+    INITIALIZATION [style=dashed]
+    MAINTENANCE [style=dashed]
+
+    ORDERING -> waiting_started
+
+    CLEANING -> waiting_started
+
+    waiting_started [label="Waiting\nstarted"]
+    waiting_started -> {
+        product_option_choosing_started
+        cleaning_time_come
+        bluetooth_maintenance_signal_received
+        maintenance_usb_drive_inserted
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    product_option_choosing_started [label="Product\noption\nchoosing\nstarted"]
+    product_option_choosing_started -> {
+        ORDERING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    cleaning_time_come [label="Cleaning\ntime\ncome"]
+    cleaning_time_come -> {
+        CLEANING
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    bluetooth_maintenance_signal_received [label="Bluetooth\nmaintenance\nsignal\nreceived"]
+    bluetooth_maintenance_signal_received -> {
+        MAINTENANCE
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    maintenance_usb_drive_inserted [label="Maintenance\nUSB drive\ninserted"]
+    maintenance_usb_drive_inserted -> {
+        MAINTENANCE
+        machine_controlled_by_hardware
+        problem_detected
+    }
+
+    problem_detected [label="Problem\ndetected"]
+    problem_detected -> HANDLING_PROBLEM
+
+    machine_controlled_by_hardware [label="Machine\ncontrolled\nby hardware"]
+    machine_controlled_by_hardware -> INITIALIZATION
+}
