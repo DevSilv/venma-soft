@@ -1,148 +1,177 @@
+//digraph general {
+//    label=general
+//    //rankdir=LR
+//    //splines=polyline
+//    //ranksep=2
+//    //len=2
+//    //nodesep=2
+//
+//    subgraph cluster_0 {
+//        label="Notes"
+//        graph [style=bold]
+//        1 [shape=plaintext, label="
+//(1) If the software is \"hardware-controlled\", it means
+//that the control has been taken from the software
+//by the hardware; it could happen e.g. when there was
+//a power outage, or simply there is any problem detected
+//by the hardware.
+//(2) \"Logging-in\" can be started either by sending
+//a maintenance signal via bluetooth to the machine,
+//or by inserting a maintainance USB.
+//(3) \"Logging-in\" involves two-factor authentication.
+//(4) Every notification for the maintainers includes
+//the machine's serial number and the reason it has been sent
+//for.
+//(5) \"Starting the paying\" means particularly
+//that the user either insert the cash, use the card, or use
+//any other available way of starting the paying.
+//(6) \"Ended the paying\" means particularly
+//that either the user inserted all the cash, the bank
+//transaction succeeded, or any other payment method
+//that was used has ended.
+//(7) \"Predicting low level of an ingredient from a recipe
+//for a product\" means predicting the level
+//of this ingredient after the product is eventually
+//prepared.
+//(8) As a \"problem\" while \"checking ingredients\"
+//it is considered, among others, an invalid arrangement
+//of ingredients in particular containers, and an invalid
+//arrangement of containers themselves.
+//(9) As a \"problem\" while \"cleaning\" it is considered,
+//among others, that the sewage container is full.
+//        "]
+//    }
+//
+//    initializing [label="initializing\n(clean start)"]
+//    initializing -> cleaning [label="initializing\nsucceeded"]
+//    initializing -> initializing [label="hardware-controlled"]
+//    initializing -> blocking [label="problem\ndetected"]
+//
+//    subgraph cluster_accepting_input_from_user {
+//        label="accepting input from user"
+//        waiting
+//        subgraph cluster_ordering {
+//            label="ordering"
+//            selecting
+//            paying
+//        }
+//    }
+//
+//    waiting -> selecting [label="selecting\nstarted"]
+//    waiting -> cleaning [label="time\nhas come"]
+//    waiting -> initializing [label="hardware-controlled"]
+//    waiting -> blocking [label="problem\ndetected"]
+//    waiting -> logging_in [label="logging-in\nstarted"]
+//
+//    selecting -> checking_ingredients [label="selecting\nsucceeded"]
+//    selecting -> initializing [label="hardware-controlled"]
+//    selecting -> blocking [label="problem\ndetected"]
+//
+//    checking_ingredients [label="checking\ningredients"]
+//    checking_ingredients -> paying [label="checking\ningredients\nsucceeded"]
+//    checking_ingredients -> making_product_unavailable [label="not enough\ningredients\nfor ordered\nproduct"]
+//    checking_ingredients -> notifying_maintainers_about_ingredient_low_level [label="ingredient\nlow level\npredicted"]
+//    checking_ingredients -> initializing [label="hardware-controlled"]
+//    checking_ingredients -> blocking [label="problem\ndetected"]
+//
+//    paying -> delivering [label="paying\nended"]
+//    paying -> paying [label="paying\nnot ended"]
+//    paying -> initializing [label="hardware-controlled"]
+//    paying -> blocking [label="problem\ndetected"]
+//
+//    delivering
+//    delivering -> cleaning [label="delivering\nsucceeded"]
+//    delivering -> initializing [label="hardware-controlled"]
+//    delivering -> blocking [label="problem\ndetected"]
+//
+//    making_product_unavailable [label="making\nproduct\nunavailable"]
+//    making_product_unavailable -> notifying_users_about_product_unavailability [label="making\nproduct\nunavailable\nsucceeded"]
+//    making_product_unavailable -> initializing [label="hardware-controlled"]
+//    making_product_unavailable -> blocking [label="problem\ndetected"]
+//
+//    notifying_users_about_product_unavailability [label="notifying users\nabout product\nunavailability"]
+//    notifying_users_about_product_unavailability -> waiting [label="notifying users\nabout product\nunavailability\nsucceeded"]
+//    notifying_users_about_product_unavailability -> initializing [label="hardware-controlled"]
+//    notifying_users_about_product_unavailability -> blocking [label="problem\ndetected"]
+//
+//    notifying_maintainers_about_ingredient_low_level [label="notifying\nmaintainers\nabout ingredient\nlow level"]
+//    notifying_maintainers_about_ingredient_low_level -> paying [label="notifying\nmaintainers\nabout ingredient\nlow level\nsucceeded"]
+//    notifying_maintainers_about_ingredient_low_level -> initializing [label="hardware-controlled"]
+//    notifying_maintainers_about_ingredient_low_level -> blocking [label="problem\ndetected"]
+//
+//    subgraph cluster_maintaining {
+//        label=maintaining
+//        logging_in [label="logging-in"]
+//        maintained
+//        logging_out [label="logging-out"]
+//    }
+//
+//    logging_in -> maintained [label="logging-in\nsucceeded"]
+//    logging_in -> initializing [label="hardware-controlled"]
+//    logging_in -> blocking [label="problem\ndetected"]
+//
+//    maintained -> logging_out [label="logging-out\nstarted"]
+//    maintained -> initializing [label="hardware-controlled"]
+//    maintained -> blocking [label="problem\ndetected"]
+//
+//    logging_out -> cleaning [label="logging-out\nsucceeded"]
+//    logging_out -> initializing [label="hardware-controlled"]
+//    logging_out -> blocking [label="problem\ndetected"]
+//
+//    cleaning
+//    cleaning -> waiting [label="cleaning\nsucceeded"]
+//    cleaning -> initializing [label="hardware-controlled"]
+//    cleaning -> blocking [label="problem\ndetected"]
+//
+//    subgraph cluster_problem_handling {
+//        label="problem handling"
+//        blocking
+//        notifying_users_about_problem [label="notifying\nusers\nabout problem"]
+//        returning_money [label="returning\nmoney"]
+//        notifying_maintainers_about_problem [label="notifying\nmaintainers\nabout problem"]
+//        waiting_for_maintenance [label="waiting\nfor maintenance"]
+//    }
+//
+//    blocking -> notifying_users_about_problem [label="blocking\nsucceeded"]
+//    blocking -> initializing [label="hardware-controlled"]
+//
+//    notifying_users_about_problem -> returning_money [label="notifying\nusers\nabout problem\nsucceeded"]
+//    notifying_users_about_problem -> initializing [label="hardware-controlled"]
+//
+//    returning_money -> notifying_maintainers_about_problem [label="returning\nmoney\nsucceeded"]
+//    returning_money -> initializing [label="hardware-controlled"]
+//
+//    notifying_maintainers_about_problem -> waiting_for_maintenance [label="notifying\nmaintainers\nabout problem\nsucceeded"]
+//    notifying_maintainers_about_problem -> initializing [label="hardware-controlled"]
+//
+//    waiting_for_maintenance -> logging_in [label="logging-in\nstarted"]
+//    waiting_for_maintenance -> initializing [label="hardware-controlled"]
+//}
+
 digraph {
-    //rankdir=LR
-    //splines=polyline
-    ranksep=2
-    //len=2
-    nodesep=2
-
-    subgraph cluster_0 {
-        label="Notes"
-        graph [style=bold]
-        1 [shape=plaintext, label="
-(1) If the software is \"hardware-controlled\", it means
-that the control has been taken from the software
-by the hardware; it could happen e.g. when there was
-a power outage, or simply there is any problem detected
-by the hardware.
-(2) \"Logging-in\" can be started either by sending
-a maintenance signal via bluetooth to the machine,
-or by inserting a maintainance USB.
-(3) \"Logging-in\" involves two-factor authentication.
-(4) Every notification for the maintainers includes
-the machine's serial number and the reason it has been sent
-for.
-(5) \"Starting the paying\" means particularly
-that the user either insert the cash, use the card, or use
-any other available way of starting the paying.
-(6) \"Ended the paying\" means particularly
-that either the user inserted all the cash, the bank
-transaction succeeded, or any other payment method
-that was used has ended.
-(7) \"Predicting low level of an ingredient from a recipe
-for a product\" means predicting the level
-of this ingredient after the product is eventually
-prepared.
-(8) As a \"problem\" while \"checking ingredients\"
-it is considered, among others, an invalid arrangement
-of ingredients in particular containers, and an invalid
-arrangement of containers themselves.
-(9) As a \"problem\" while \"cleaning\" it is considered,
-among others, that the sewage container is full.
-        "]
+    subgraph cluster_paying {
+        label=paying
+        paying_started [style=solid,label="paying\nstarted"]
+        paying_continued [style=solid,label="paying\ncontinued"]
+        paying_not_done [style=solid,label="paying\nnot done"]
+        paying_done [style=solid,label="paying\ndone"]
     }
 
-    initializing [label="initializing\n(clean start)"]
-    initializing -> cleaning [label="initializing\nsucceeded"]
-    initializing -> initializing [label="hardware-controlled"]
-    initializing -> blocking [label="problem\ndetected"]
+    paying_started -> paying_not_done
+    paying_started -> paying_done
+    paying_started -> interrupted_by_hardware
+    paying_started -> problem_detected
 
-    subgraph cluster_accepting_input_from_user {
-        label="accepting input from user"
-        waiting
-        subgraph cluster_ordering {
-            label="ordering"
-            selecting
-            paying
-        }
-    }
+    paying_not_done -> paying_continued
+    paying_not_done -> interrupted_by_hardware
+    paying_not_done -> problem_detected
 
-    waiting -> selecting [label="selecting\nstarted"]
-    waiting -> cleaning [label="time\nhas come"]
-    waiting -> initializing [label="hardware-controlled"]
-    waiting -> blocking [label="problem\ndetected"]
-    waiting -> logging_in [label="logging-in\nstarted"]
+    paying_continued -> paying_continued
+    paying_continued -> paying_done
+    paying_continued -> interrupted_by_hardware
+    paying_continued -> problem_detected
 
-    selecting -> checking_ingredients [label="selecting\nsucceeded"]
-    selecting -> initializing [label="hardware-controlled"]
-    selecting -> blocking [label="problem\ndetected"]
-
-    checking_ingredients [label="checking\ningredients"]
-    checking_ingredients -> paying [label="checking\ningredients\nsucceeded"]
-    checking_ingredients -> making_product_unavailable [label="not enough\ningredients\nfor ordered\nproduct"]
-    checking_ingredients -> notifying_maintainers_about_ingredient_low_level [label="ingredient\nlow level\npredicted"]
-    checking_ingredients -> initializing [label="hardware-controlled"]
-    checking_ingredients -> blocking [label="problem\ndetected"]
-
-    paying -> delivering [label="paying\nended"]
-    paying -> paying [label="paying\nnot ended"]
-    paying -> initializing [label="hardware-controlled"]
-    paying -> blocking [label="problem\ndetected"]
-
-    delivering
-    delivering -> cleaning [label="delivering\nsucceeded"]
-    delivering -> initializing [label="hardware-controlled"]
-    delivering -> blocking [label="problem\ndetected"]
-
-    making_product_unavailable [label="making\nproduct\nunavailable"]
-    making_product_unavailable -> notifying_users_about_product_unavailability [label="making\nproduct\nunavailable\nsucceeded"]
-    making_product_unavailable -> initializing [label="hardware-controlled"]
-    making_product_unavailable -> blocking [label="problem\ndetected"]
-
-    notifying_users_about_product_unavailability [label="notifying users\nabout product\nunavailability"]
-    notifying_users_about_product_unavailability -> waiting [label="notifying users\nabout product\nunavailability\nsucceeded"]
-    notifying_users_about_product_unavailability -> initializing [label="hardware-controlled"]
-    notifying_users_about_product_unavailability -> blocking [label="problem\ndetected"]
-
-    notifying_maintainers_about_ingredient_low_level [label="notifying\nmaintainers\nabout ingredient\nlow level"]
-    notifying_maintainers_about_ingredient_low_level -> paying [label="notifying\nmaintainers\nabout ingredient\nlow level\nsucceeded"]
-    notifying_maintainers_about_ingredient_low_level -> initializing [label="hardware-controlled"]
-    notifying_maintainers_about_ingredient_low_level -> blocking [label="problem\ndetected"]
-
-    subgraph cluster_maintaining {
-        label=maintaining
-        logging_in [label="logging-in"]
-        maintained
-        logging_out [label="logging-out"]
-    }
-
-    logging_in -> maintained [label="logging-in\nsucceeded"]
-    logging_in -> initializing [label="hardware-controlled"]
-    logging_in -> blocking [label="problem\ndetected"]
-
-    maintained -> logging_out [label="logging-out\nstarted"]
-    maintained -> initializing [label="hardware-controlled"]
-    maintained -> blocking [label="problem\ndetected"]
-
-    logging_out -> cleaning [label="logging-out\nsucceeded"]
-    logging_out -> initializing [label="hardware-controlled"]
-    logging_out -> blocking [label="problem\ndetected"]
-
-    cleaning
-    cleaning -> waiting [label="cleaning\nsucceeded"]
-    cleaning -> initializing [label="hardware-controlled"]
-    cleaning -> blocking [label="problem\ndetected"]
-
-    subgraph cluster_problem_handling {
-        label="problem handling"
-        blocking
-        notifying_users_about_problem [label="notifying\nusers\nabout problem"]
-        returning_money [label="returning\nmoney"]
-        notifying_maintainers_about_problem [label="notifying\nmaintainers\nabout problem"]
-        waiting_for_maintenance [label="waiting\nfor maintenance"]
-    }
-
-    blocking -> notifying_users_about_problem [label="blocking\nsucceeded"]
-    blocking -> initializing [label="hardware-controlled"]
-
-    notifying_users_about_problem -> returning_money [label="notifying\nusers\nabout problem\nsucceeded"]
-    notifying_users_about_problem -> initializing [label="hardware-controlled"]
-
-    returning_money -> notifying_maintainers_about_problem [label="returning\nmoney\nsucceeded"]
-    returning_money -> initializing [label="hardware-controlled"]
-
-    notifying_maintainers_about_problem -> waiting_for_maintenance [label="notifying\nmaintainers\nabout problem\nsucceeded"]
-    notifying_maintainers_about_problem -> initializing [label="hardware-controlled"]
-
-    waiting_for_maintenance -> logging_in [label="logging-in\nstarted"]
-    waiting_for_maintenance -> initializing [label="hardware-controlled"]
+    paying_done -> delivering_started
+    paying_done -> interrupted_by_hardware
+    paying_done -> problem_detected
 }
